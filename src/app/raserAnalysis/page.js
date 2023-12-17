@@ -4,12 +4,44 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CircularIndeterminate from "../../components/loading";
 import { Button } from "@mui/material";
+import writeXlsxFile from 'write-excel-file'
+
+const schema = [
+    {
+      column: 'Candidate Name',
+      type: String,
+      value: candidate => candidate.name
+    },
+    {
+      column: 'Direct Matching Score',
+      type: Number,
+      value: candidate => candidate.dms
+    },
+    {
+        column: 'Semantic Similarity Score',
+        type: Number,
+        value: candidate => candidate.sss
+    },
+    {
+        column: 'Total Score',
+        type: Number,
+        value: candidate => candidate.ts
+    }
+  ]
+
 const test = [
   { id: 1, name: "aryan", dms: 117.9, sss: 82, ts: 117 },
   { id: 2, name: "tushar", dms: 117.9, sss: 72, ts: 107 },
   { id: 3, name: "gunjan", dms: 117.9, sss: 62, ts: 107 },
   { id: 4, name: "gunika", dms: 127.9, sss: 52, ts: 105 },
 ];
+
+const handleDownloadRankingResults=async()=>{
+    await writeXlsxFile(test,{
+        schema,
+        fileName:'ranking-results.xlsx'
+    })
+}
 
 const page = () => {
   const [rows, setRows] = useState(test);
@@ -49,9 +81,9 @@ const page = () => {
     );
   }
   return (
-    <div>
+    <div >
       <RankingTableComponent rows={rows} />
-      <Button variant="contained" sx={{bgcolor:'grey','&hover':{bgcolor:'black'}}}>Import the sheet containing this information</Button>
+      <Button variant="outline" sx={{border:'1px solid grey'}} onClick={handleDownloadRankingResults}>Import Ranking Data</Button>
     </div>
   );
 };

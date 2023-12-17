@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import CircularIndeterminate from "@/components/loading";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -19,14 +20,18 @@ const VisuallyHiddenInput = styled("input")({
 
 const ExcelInputComponent = () => {
   const router = useRouter();
-
+  const [loading, setLoading] = useState(true);
   const [excelSheet, setExcelSheet] = useState(null);
   const [jobDescription, setJobDescription] = useState(null);
   useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
     if (!excelSheet || !jobDescription) {
       return;
     }
-    router.push("/second");
+    router.push("/raserAnalysis");
   }, [excelSheet, jobDescription]);
 
   const handleExcelSheetSubmitted = (e) => {
@@ -43,8 +48,16 @@ const ExcelInputComponent = () => {
     }
     setJobDescription(e.target.value);
   };
+
+  if (loading) {
+    return (
+      <div>
+        <CircularIndeterminate />
+      </div>
+    );
+  }
   return (
-    <div>
+    <div style={{ backgroundColor: "#0e172b" ,height:'100vh',color:'white'}}>
       <Typography variant="h5">
         Enter Excel Sheet containing Candidate Information (.xlsx) and then the
         pdf containing the job description (.pdf)

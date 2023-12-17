@@ -17,11 +17,13 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { useRouter } from "next/navigation";
 
 const drawerWidth = 240;
 const navItems = ["Github", "About", "Contact"];
 
 export default function Home(props) {
+  const router = useRouter();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -53,7 +55,7 @@ export default function Home(props) {
     <div style={{ margin: 0 }}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar component="nav">
+        <AppBar component="nav" sx={{ bgcolor: "inherit" }}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -103,11 +105,18 @@ export default function Home(props) {
         <Typography variant="h1" sx={{ fontWeight: "700" }}>
           Your Tool for Finding the Perfect Candidates for your Needs
         </Typography>
-        <Typography variant="h5">
+        <Typography variant="h5" sx={{ marginTop: 4 }}>
           RASER empowers you to choose the best candidates that match perfectly
           for each job you hire for.
         </Typography>
-        <Link href={"/first"}>Start the process</Link>
+        <Button
+          sx={{ bgcolor: "white", color: "black" }}
+          onClick={() => {
+            router.push("/uploadDocs");
+          }}
+        >
+          Start the process
+        </Button>
       </div>
     </div>
   );
