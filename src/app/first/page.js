@@ -1,21 +1,22 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-const page = () => {
-  const router=useRouter()
+import { useRouter } from "next/navigation";
+const ExcelInputComponent = () => {
+  const router = useRouter();
 
-  const [excelSheet,setExcelSheet]=useState(null)
-  useEffect(()=>{
+  const [excelSheet, setExcelSheet] = useState(null);
+  useEffect(() => {
     if(!excelSheet){
-      router.push('/second')
+      return;
     }
-  },[excelSheet])
+    router.push("/second");
+  }, [excelSheet]);
   const handleExcelSheetSubmitted = (e) => {
     if (!e.target.value.endsWith(".xlsx")) {
       alert("Please submit only an xlsx type file.");
       return false;
     }
-    setExcelSheet(e.target.value)
+    setExcelSheet(e.target.value);
   };
   return (
     <div>
@@ -32,4 +33,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ExcelInputComponent;
