@@ -1,15 +1,17 @@
 "use client";
+import RankingTableComponent from '@/components/RankingTableComponent';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-const test={
-    "Tushar_Jha4.pdf": 117.9,
-    "Aryan__Sethi1.pdf": 101.8,
-    "Nayra_Sethi2.pdf": 100,
-    "Gunika_Dhingra3.pdf": 80.4
-}
+const test=[
+    {id:1, name:"aryan", dms:117.9,sss:82,ts:117},
+    {id:2, name:"tushar", dms:117.9,sss:72,ts:107},
+    {id:3, name:"gunjan", dms:117.9,sss:62,ts:107},
+    {id:4, name:"gunika", dms:127.9,sss:52,ts:105},
+]
 
 const page = () => {
+    const [rows,setRows]=useState(test)
     const [loading,setLoading]=useState(true)
     const [candidateInformation,setCandidateInformation]=useState(test)
     useEffect(() => {
@@ -42,7 +44,7 @@ const page = () => {
         )
     }
   return (
-    <div>page</div>
+    <div><RankingTableComponent rows={rows}/></div>
   )
 }
 
