@@ -12,6 +12,7 @@ Choose your purpose
 -theme harmony
 -responsiveness
 -fix menuicon
+-show a popup for each document(xlsx and pdf success)
 -replace xlsx alert with an mui alert
 -add a Loading UI for a segment and its children (check nextjs file conventions for this)
 Upload excel sheet
@@ -27,6 +28,7 @@ Completed
 -change route names later
 -upload job description on /first
 -eventually render a table of rankings and then give an option to download an excel sheet of the same
+-write tests 
 
 
 

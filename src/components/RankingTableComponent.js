@@ -50,7 +50,7 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'NAME',
+    id: 'name',
     numeric: false,
     disablePadding: true,
     label: 'Candidate Name',
@@ -272,7 +272,6 @@ export default function RankingTableComponent(props) {
                 return (
                   <TableRow
                     hover
-                    // onClick={(event) => handleClick(event, row.id)}
                     aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.id}
