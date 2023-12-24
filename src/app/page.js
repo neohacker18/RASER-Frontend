@@ -20,8 +20,9 @@ import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 import { Grid, Stack } from "@mui/material";
 
+
 const drawerWidth = 240;
-const navItems = ["Github", "About", "Metrics","Contact"];
+const navItems = ["Github", "About", "Metrics", "Contact"];
 
 export default function Home(props) {
   const router = useRouter();
@@ -112,19 +113,24 @@ export default function Home(props) {
         </nav>
       </Box>
       <div className={styles.container}>
-        <Typography variant="h1" sx={{ fontWeight: "700", fontSize: "5rem",color:'#E5E7EB' }}>
+        <Typography
+          variant="h1"
+          sx={{ fontWeight: "700", fontSize: "4.2rem", color: "#E5E7EB" }}
+        >
           Your Tool for Finding the Perfect Candidates for your Needs
         </Typography>
         <Typography
           variant="h5"
           sx={{
-            marginTop: 4,color:'#E5E7EB'
+            marginTop: 4,
+            color: "#E5E7EB",
           }}
         >
           RASER empowers you to choose the best candidates that match perfectly
           for each job you hire for.
         </Typography>
         <Button
+        className={styles.process_button}
           variant="outlined"
           sx={{ marginTop: 4 }}
           onClick={() => {
@@ -172,7 +178,6 @@ export default function Home(props) {
           sx={{ width: "100%", padding: "0 150px" }}
         >
           <Grid
-            marginTop={8}
             container
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 5 }}
@@ -186,7 +191,7 @@ export default function Home(props) {
                 >
                   Natural Language Processing
                 </Typography>
-                <Typography sx={{marginTop:2,color:'#95A3B9'}}>
+                <Typography sx={{ marginTop: 2, color: "#95A3B9" }}>
                   We leverage state-of-the-art natural language processing
                   techniques to extract and comprehend the context of resumes
                   and job descriptions. This technology allows us to provide you
@@ -203,7 +208,7 @@ export default function Home(props) {
                 >
                   User-Friendly Interface
                 </Typography>
-                <Typography sx={{marginTop:2,color:'#95A3B9'}}>
+                <Typography sx={{ marginTop: 2, color: "#95A3B9" }}>
                   We understand the importance of a seamless user experience.
                   Our web page is designed to be intuitive and user-friendly,
                   allowing you to interact with the project with ease.
@@ -219,7 +224,7 @@ export default function Home(props) {
                 >
                   Python-Based
                 </Typography>
-                <Typography sx={{marginTop:2,color:'#95A3B9'}}>
+                <Typography sx={{ marginTop: 2, color: "#95A3B9" }}>
                   Our project is currently written in Python, a powerful and
                   versatile programming language known for its readability and
                   efficiency.
@@ -235,7 +240,7 @@ export default function Home(props) {
                 >
                   Semantic Similarity
                 </Typography>
-                <Typography sx={{marginTop:2,color:'#95A3B9'}}>
+                <Typography sx={{ marginTop: 2, color: "#95A3B9" }}>
                   Our text similarity feature provides a detailed comparison
                   between your resume and job descriptions. This feature helps
                   you identify the areas where your resume aligns with the job
