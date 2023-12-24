@@ -110,7 +110,8 @@ export default function Home(props) {
           for each job you hire for.
         </Typography>
         <Button
-          sx={{ bgcolor: "white", color: "black" }}
+        variant="outlined"
+        sx={{marginTop:4}}
           onClick={() => {
             router.push("/uploadDocs");
           }}

@@ -83,7 +83,7 @@ const page = () => {
   return (
     <div >
       <RankingTableComponent rows={rows} />
-      <Button variant="outline" sx={{border:'1px solid grey'}} onClick={handleDownloadRankingResults}>Import Ranking Data</Button>
+      <Button variant="outlined" sx={{border:'1px solid grey',marginLeft:'10%'}} onClick={handleDownloadRankingResults}>Export Ranking Data</Button>
     </div>
   );
 };
