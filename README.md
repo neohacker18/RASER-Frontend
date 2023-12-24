@@ -41,6 +41,10 @@
 </div>
 <div>
 <input type="checkbox" /><label>-in the end also add the pdf link to the results (export sheet+on the site) as well (maybe use a key method to find the link again?)</label>
+<input type="checkbox" /><label>-custom typography (wherever required)</label>
+<input type="checkbox" /><label>use <.Paper/> from mui </label>
+<input type="checkbox" /><label>Add things to the navbar</label>
+<input type="checkbox" /><label>redesign /uploadDocs </label>
 </div>
 </div>
 <div>
