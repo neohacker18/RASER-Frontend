@@ -63,7 +63,7 @@ export default function Home(props) {
             bgcolor: "#12295c",
             fontSize: 20,
             background:
-              "-webkit-linear-gradient(45deg, #12295c 30%, #12485c 90%)",
+              "-webkit-linear-gradient(45deg, #12295c 30%, #12485c 30%)",
             webkitBackgroundClip: "text",
           }}
         >
@@ -125,9 +125,19 @@ export default function Home(props) {
             marginTop: 4,
             color: "#E5E7EB",
           }}
-        >
+          >
           RASER empowers you to choose the best candidates that match perfectly
           for each job you hire for.
+        </Typography>
+        <Typography
+          variant="h5"
+          className={styles.raser_text}
+          sx={{
+            marginTop: 4,
+            color: "#E5E7EB",
+          }}
+        >
+          RASER : Resume Analysis and Scoring for Enhanced Recruitment
         </Typography>
         <Button
         className={styles.process_button}

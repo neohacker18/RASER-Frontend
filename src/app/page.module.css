@@ -4,16 +4,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 800px;
     background-color: rgb(14,23,43);
     color: white;
     text-align: center;
     width: 80%;
-    margin: auto;
+    margin: 0 auto;
    }
 
    .process_button {
-    background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
+    background: linear-gradient(45deg, #945309 30%, #a75db677 90%);
     border-radius: 3px;
     border: 0;
     color: white;
@@ -22,3 +22,16 @@
     box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
   }
   
+ .raser_text{
+  font-weight: 600;
+  background: -webkit-linear-gradient(45deg,#8fa9f0 30%, #3978ee 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+ }
+
+ .circular_progress{
+  font-size: 72px;
+  background: -webkit-linear-gradient(#eee, #bd3b3b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+ }
