@@ -89,7 +89,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead sx={{ bgcolor: "#7ca1f2" }}>
+    <TableHead sx={{ bgcolor: "#2e5ec7" }}>
       <TableRow>
         <TableCell padding="checkbox"></TableCell>
         {headCells.map((headCell) => (
@@ -155,7 +155,7 @@ function EnhancedTableToolbar(props) {
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: "1 1 100%",marginLeft:4 }}
+          sx={{ flex: "1 1 100%", marginLeft: 4 }}
           variant="h6"
           id="tableTitle"
           component="div"
@@ -189,7 +189,7 @@ export default function RankingTableComponent(props) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -253,9 +253,23 @@ export default function RankingTableComponent(props) {
   );
 
   return (
-    <Box sx={{ width: "100%",marginTop:'3%' }}>
-      <Paper sx={{ width: "80%", mb: 2, bgcolor: "#99b5f2",marginLeft:'10%' }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+    <Box sx={{ width: "100%", marginTop: "3%" }}>
+      <Box sx={{ marginBottom: 5,width:'100%',textAlign:'center' }}>
+      <Typography
+          variant="h3"
+          sx={{
+            color: "#BFDAFF",
+            fontSize: "2.8rem",
+            fontWeight: "700",
+          }}
+        >
+          RASER Analysis
+        </Typography>
+      </Box>
+      <Paper
+        sx={{ width: "80%", mb: 2, bgcolor: "#99b5f2", marginLeft: "10%" }}
+      >
+        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}

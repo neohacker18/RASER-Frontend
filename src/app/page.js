@@ -19,6 +19,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 import { Grid, Stack } from "@mui/material";
+import MetricsComponent from "@/components/MetricsComponent";
+import AnalysisComponent from "@/components/Analysis";
 
 
 const drawerWidth = 240;
@@ -112,7 +114,7 @@ export default function Home(props) {
           </Drawer>
         </nav>
       </Box>
-      <div className={styles.container}>
+      <div className={styles.container} style={{height:820}}>
         <Typography
           variant="h1"
           sx={{ fontWeight: "700", fontSize: "4.2rem", color: "#E5E7EB" }}
@@ -260,6 +262,8 @@ export default function Home(props) {
             </Grid>
           </Grid>
         </Stack>
+        <MetricsComponent/>
+        <AnalysisComponent/>
       </Stack>
     </div>
   );

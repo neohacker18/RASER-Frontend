@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CircularIndeterminate from "@/components/loading";
 import Card from "@mui/material/Card";
@@ -10,6 +10,8 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { FaArrowLeft } from "react-icons/fa";
+import { FaFileExcel, FaFilePdf, FaArrowDown } from "react-icons/fa";
+import styles from "../page.module.css";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -94,11 +96,22 @@ const ExcelInputComponent = () => {
         onClick={() => {
           router.push("/");
         }}
+      ></Button>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: "100%",
+          marginTop: 5,
+        }}
       >
-        <FaArrowLeft style={{ color: "pink", cursor: "pointer" }} />
-      </Button>
-      <Box sx={{display:'flex',flexDirection:'column',justifyContent:'space-between',height:'60%',marginTop:5}}>
-        <Button component="label" variant="outlined">
+        <Button
+          component="label"
+          variant="outlined"
+          className={`${!excelSheet?styles.upload_button:styles.submitted_button}`}
+        >
+          <FaFileExcel style={{ marginRight: 8, height: 35, width: 20 }} />
           Upload Excel Sheet
           <VisuallyHiddenInput
             type="file"
@@ -107,7 +120,12 @@ const ExcelInputComponent = () => {
           />
         </Button>
 
-        <Button component="label" variant="outlined">
+        <Button
+          component="label"
+          variant="outlined"
+          className={`${!jobDescription?(styles.upload_button):(styles.submitted_button)}`}
+        >
+          <FaFilePdf style={{ marginRight: 8, height: 35, width: 20 }} />
           Upload Job Description
           <VisuallyHiddenInput
             type="file"
@@ -128,9 +146,26 @@ const ExcelInputComponent = () => {
   }
 
   return (
-    <div
-      style={{ backgroundColor: "#0e172b", height: "100vh", color: "white" }}
+    <Stack
+      style={{
+        backgroundColor: "#0e172b",
+        color: "white",
+        alignItems: "center",
+      }}
     >
+      <Box>
+        <Typography
+          variant="h3"
+          sx={{
+            marginTop: 10,
+            color: "#BFDAFF",
+            fontSize: "2.8rem",
+            fontWeight: "700",
+          }}
+        >
+          Upload your essentials here <FaArrowDown />
+        </Typography>
+      </Box>
       <Container
         sx={{
           display: "flex",
@@ -141,22 +176,7 @@ const ExcelInputComponent = () => {
           width: "300px",
         }}
       >
-        <Box sx={{ minWidth: 275, marginTop: "60%" }}>
-          <Card
-            variant="outlined"
-            sx={{
-              bgcolor: "#111e3b",
-              height: "270px",
-              boxShadow: 10,
-              display: "flex",
-              flexDirection: "column",
-              padding: 2,
-              borderRadius: 3,
-            }}
-          >
-            {card}
-          </Card>
-        </Box>
+        <Box sx={{ minWidth: 275, marginTop: "30%" }}>{card}</Box>
         {message && (
           <Alert
             onClose={handleClose}
@@ -167,7 +187,7 @@ const ExcelInputComponent = () => {
           </Alert>
         )}
       </Container>
-    </div>
+    </Stack>
   );
 };
 

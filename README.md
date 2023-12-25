@@ -45,6 +45,9 @@
 <input type="checkbox" /><label>use <.Paper/> from mui </label>
 <input type="checkbox" /><label>Add things to the navbar</label>
 <input type="checkbox" /><label>redesign /uploadDocs </label>
+<input type="checkbox" /><label>use paper/report to write taglines</label>
+<input type="checkbox" /><label>use paper/report and add system architecture wherever possible (like a want to know more about the system or scoring or sth?)</label>
+<input type="checkbox" /><label>add alert on wrong type submitted.</label>
 </div>
 </div>
 <div>
