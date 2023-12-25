@@ -6,6 +6,7 @@ import CircularIndeterminate from "../../components/loading";
 import { Button } from "@mui/material";
 import writeXlsxFile from "write-excel-file";
 import styles from "../page.module.css";
+import { useRouter } from "next/navigation";
 
 const schema = [
   {
@@ -30,45 +31,43 @@ const schema = [
   },
 ];
 
-const test = [
-  { id: 1, name: "aryan", dms: 117.9, sss: 82, ts: 117 },
-  { id: 2, name: "tushar", dms: 117.9, sss: 72, ts: 107 },
-  { id: 3, name: "gunjan", dms: 117.9, sss: 62, ts: 107 },
-  { id: 4, name: "gunika", dms: 127.9, sss: 52, ts: 105 },
-];
 
-const handleDownloadRankingResults = async () => {
-  await writeXlsxFile(test, {
+const handleDownloadRankingResults = async (output) => {
+  await writeXlsxFile(output, {
     schema,
     fileName: "ranking-results.xlsx",
   });
 };
 
 const page = () => {
-  const [rows, setRows] = useState(test);
+  const router=useRouter()
+  const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [candidateInformation, setCandidateInformation] = useState(test);
+  const [candidateInformation, setCandidateInformation] = useState(null);
+  console.log(router)
   useEffect(() => {
-    if (candidateInformation !== null) {
-      setLoading(false);
-
+    if(candidateInformation!==null){
+      setLoading(false)
       return;
     }
-    setLoading(true);
     const getCandidateInformation = async () => {
       try {
+        setLoading(true);
         const res = await axios.post(
-          "http://192.168.1.37:5000/getRankedResumes"
+          "http://192.168.1.37:5000/getRankedResumes",{
+            jdPath:'hello'
+          }
         );
-        if (res && res.data && res.data.Rankings) {
-          console.log(res.data.Rankings);
-          setCandidateInformation(res.data.Rankings);
+        if (res && res.data) {
+          console.log(res.data);
+          setRows(res.data)
+          setCandidateInformation(res.data)
+          setLoading(false)
         }
       } catch (err) {
         console.error(`An error occurred: ${err}`);
-      } finally {
         setLoading(false);
-      }
+      } 
     };
 
     getCandidateInformation();
@@ -88,7 +87,7 @@ const page = () => {
         className={styles.process_button}
         variant="outlined"
         sx={{ border: "1px solid grey", marginLeft: "10%" }}
-        onClick={handleDownloadRankingResults}
+        onClick={()=>handleDownloadRankingResults(rows)}
       >
         Export Ranking Data
       </Button>

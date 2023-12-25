@@ -47,7 +47,9 @@
 <input type="checkbox" /><label>redesign /uploadDocs </label>
 <input type="checkbox" /><label>use paper/report to write taglines</label>
 <input type="checkbox" /><label>use paper/report and add system architecture wherever possible (like a want to know more about the system or scoring or sth?)</label>
+<input type="checkbox" /><label>use sockets to send intermediate messages for loading</label>
 <input type="checkbox" /><label>add alert on wrong type submitted.</label>
+<input type="checkbox" /><label>add a caching mechanism (use redis) so that you dont have to compute on every back and forward page move (if jd and resume are same , generate a token , and if result for token is there then return)</label>
 </div>
 </div>
 <div>

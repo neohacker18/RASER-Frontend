@@ -12,6 +12,7 @@ import MuiAlert from "@mui/material/Alert";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaFileExcel, FaFilePdf, FaArrowDown } from "react-icons/fa";
 import styles from "../page.module.css";
+import axios from "axios";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -54,16 +55,20 @@ const ExcelInputComponent = () => {
     setOpen(false);
   };
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-
+    setLoading(false);
     if (!excelSheet || !jobDescription) {
       return;
     }
-    setTimeout(() => {
-      router.push("/raserAnalysis");
-    }, 2000);
+    setLoading(true);
+    if (localStorage.getItem("resumePath")) {
+      localStorage.removeItem("resumePath");
+    }
+    if (localStorage.getItem("jdPath")) {
+      localStorage.removeItem("jdPath");
+    }
+    localStorage.setItem("resumePath", excelSheet);
+    localStorage.setItem("jdPath", jobDescription);
+    router.push(`/raserAnalysis`);
   }, [excelSheet, jobDescription]);
 
   const handleExcelSheetSubmitted = (e) => {
@@ -72,7 +77,7 @@ const ExcelInputComponent = () => {
       return false;
     }
     setMessage("Candidate Excel sheet successfully uploaded.");
-    setExcelSheet(e.target.value);
+    setExcelSheet(e.target.files[0]);
     setTimeout(() => {
       setMessage(null);
     }, 3000);
@@ -91,12 +96,6 @@ const ExcelInputComponent = () => {
 
   const card = (
     <React.Fragment>
-      <Button
-        sx={{ width: 10, marginLeft: "35%" }}
-        onClick={() => {
-          router.push("/");
-        }}
-      ></Button>
       <Box
         sx={{
           display: "flex",
@@ -109,7 +108,9 @@ const ExcelInputComponent = () => {
         <Button
           component="label"
           variant="outlined"
-          className={`${!excelSheet?styles.upload_button:styles.submitted_button}`}
+          className={`${
+            !excelSheet ? styles.upload_button : styles.submitted_button
+          }`}
         >
           <FaFileExcel style={{ marginRight: 8, height: 35, width: 20 }} />
           Upload Excel Sheet
@@ -123,7 +124,9 @@ const ExcelInputComponent = () => {
         <Button
           component="label"
           variant="outlined"
-          className={`${!jobDescription?(styles.upload_button):(styles.submitted_button)}`}
+          className={`${
+            !jobDescription ? styles.upload_button : styles.submitted_button
+          }`}
         >
           <FaFilePdf style={{ marginRight: 8, height: 35, width: 20 }} />
           Upload Job Description
@@ -161,6 +164,7 @@ const ExcelInputComponent = () => {
             color: "#BFDAFF",
             fontSize: "2.8rem",
             fontWeight: "700",
+            textAlign:'center'
           }}
         >
           Upload your essentials here <FaArrowDown />
