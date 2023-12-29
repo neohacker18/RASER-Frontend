@@ -6,7 +6,7 @@ import CircularIndeterminate from "../../components/loading";
 import { Button } from "@mui/material";
 import writeXlsxFile from "write-excel-file";
 import styles from "../page.module.css";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const schema = [
   {
@@ -44,24 +44,28 @@ const page = () => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [candidateInformation, setCandidateInformation] = useState(null);
-  console.log(router)
+  const searchParams = useSearchParams()
   useEffect(() => {
     if(candidateInformation!==null){
       setLoading(false)
       return;
     }
     const getCandidateInformation = async () => {
+      //check here if router's prev address sent some flag data( send flag data to denote uploading docs was successful)
       try {
         setLoading(true);
         const res = await axios.post(
-          "http://192.168.1.37:5000/getRankedResumes",{
-            jdPath:'hello'
+          "http://127.0.0.1:5000/getRankedResumes",{
+            excelUrl:searchParams.get('excel'),
+            jdUrl:searchParams.get('jd'),
+            excelToken:searchParams.get('excelToken'),
+            jdToken:searchParams.get('jdToken'),
           }
         );
         if (res && res.data) {
           console.log(res.data);
           setRows(res.data)
-          setCandidateInformation(res.data)
+          // setCandidateInformation(res.data)
           setLoading(false)
         }
       } catch (err) {

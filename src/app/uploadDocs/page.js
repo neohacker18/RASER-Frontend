@@ -13,6 +13,33 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FaFileExcel, FaFilePdf, FaArrowDown } from "react-icons/fa";
 import styles from "../page.module.css";
 import axios from "axios";
+import { app, storage } from "../../firebase";
+import {
+  getDownloadURL,
+  getStorage,
+  listAll,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
+
+const handleUploadDocsToFirebase = async (filename, file) => {
+  const storage = getStorage();
+  const storageRef = ref(storage, `raserDocs/${filename}`);
+  await uploadBytes(storageRef, file).then((snapshot) => {
+    console.log("Uploaded a blob or file!");
+  });
+  let url;
+  await getDownloadURL(storageRef)
+    .then((res) => {
+      console.log(res)
+      url=res
+    })
+    .catch((err) => {
+      console.error("Error getting download url:", err);
+      return err;
+    });
+    return url;
+};
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -39,6 +66,8 @@ const ExcelInputComponent = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [excelSheet, setExcelSheet] = useState(null);
+  const [excelSheetToken, setExcelSheetToken] = useState(null);
+  const [jdToken, setJdToken] = useState(null);
   const [jobDescription, setJobDescription] = useState(null);
   const [message, setMessage] = useState(null);
   const [open, setOpen] = React.useState(false);
@@ -60,35 +89,37 @@ const ExcelInputComponent = () => {
       return;
     }
     setLoading(true);
-    if (localStorage.getItem("resumePath")) {
-      localStorage.removeItem("resumePath");
-    }
-    if (localStorage.getItem("jdPath")) {
-      localStorage.removeItem("jdPath");
-    }
-    localStorage.setItem("resumePath", excelSheet);
-    localStorage.setItem("jdPath", jobDescription);
-    router.push(`/raserAnalysis`);
+    setTimeout(() => {
+      router.push(`/raserAnalysis?excel=${excelSheet}&jd=${jobDescription}&excelToken=${excelSheetToken}&jdToken=${jdToken}`);
+    }, 2000);
   }, [excelSheet, jobDescription]);
 
-  const handleExcelSheetSubmitted = (e) => {
+  const handleExcelSheetSubmitted = async (e) => {
     if (!e.target.value.endsWith(".xlsx")) {
       alert("Please submit only an xlsx type file.");
       return false;
     }
+    const excelFileName = `excel_${Math.round(Math.random() * 10000)}`;
     setMessage("Candidate Excel sheet successfully uploaded.");
-    setExcelSheet(e.target.files[0]);
+    // setExcelSheet(excelFileName);
+    const res=await handleUploadDocsToFirebase(excelFileName, e.target.files[0])
+    setExcelSheet(excelFileName)
+    setExcelSheetToken(res.split('token=')[1])
     setTimeout(() => {
       setMessage(null);
     }, 3000);
   };
-  const handlePDFUploaded = (e) => {
+  const handlePDFUploaded = async (e) => {
     if (!e.target.value.endsWith(".pdf")) {
       alert("Please submit only an pdf type file.");
       return false;
     }
+    const jdFileName = `resume_${Math.round(Math.random() * 10000)}`;
     setMessage("PDF Successfully uploaded.");
-    setJobDescription(e.target.value);
+    // setJobDescription(pdfFileName);
+    const res=await handleUploadDocsToFirebase(jdFileName, e.target.files[0]);
+    setJobDescription(jdFileName)
+    setJdToken(res.split('token=')[1])
     setTimeout(() => {
       setMessage(null);
     }, 3000);
@@ -164,7 +195,7 @@ const ExcelInputComponent = () => {
             color: "#BFDAFF",
             fontSize: "2.8rem",
             fontWeight: "700",
-            textAlign:'center'
+            textAlign: "center",
           }}
         >
           Upload your essentials here <FaArrowDown />
